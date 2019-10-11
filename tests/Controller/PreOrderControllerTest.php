@@ -64,13 +64,14 @@ class PreOrderControllerTest extends WebTestCase
             'last_name' => 'test2',
             'email' => 'test@test.com',
             'phone_number' => '5554446677',
+            'status' => PreOrder::STATUS_APPROVE,
             'basket_id' => $order->getBasket()->getId(),
         ]);
 
         $this->client->request('PUT', "/api/pre-order/$id", [], [], ['CONTENT_TYPE' => 'application/json'], $putData);
 
         $data = json_decode($this->client->getResponse()->getContent(), true);
-
+        
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertArrayHasKey('data', $data);
         $this->assertArrayHasKey('preOrder', $data["data"]);
