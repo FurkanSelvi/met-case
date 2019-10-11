@@ -8,7 +8,7 @@
 
 ## Açıklama
 
-1 günden eski dataları silmek için crona eklenmesi gereken komut
+Ön sipariş süresi bir günü geçen verilerin durumunu **auto-rejected** yapmak için crona eklenmesi gereken komut:
 ```
 0 * * * * /path/to/php /path/to/bin/console custom:update-status
 ```
