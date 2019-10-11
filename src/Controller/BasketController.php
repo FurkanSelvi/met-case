@@ -52,14 +52,4 @@ class BasketController extends ApiController
         return $this->response($res);
     }
 
-    /**
-     * @Route("/test", methods={"GET"}, name="test")
-     */
-    public function test()
-    {
-        $date = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') .' -1 day'));
-        dd($date,date('Y-m-d H:i:s'));        
-    }
-
-
 }

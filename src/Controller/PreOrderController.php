@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Basket;
 use App\Entity\PreOrder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,7 @@ class PreOrderController extends ApiController
      */
     public function show($id)
     {
-        $order = $this->em->getRepository(PrePreOrder::class)->find($id);
+        $order = $this->em->getRepository(PreOrder::class)->find($id);
         if (!$order) {
             return $this->response(null, 'Aradığınız değer bulunamadı', 404, 0);
         }
@@ -61,7 +62,7 @@ class PreOrderController extends ApiController
     {
         $order = new PreOrder();
         if ($id) {
-            $order = $this->em->getRepository(PrePreOrder::class)->find($id);
+            $order = $this->em->getRepository(PreOrder::class)->find($id);
             if (!$order) {
                 return $this->response(null, 'Aradığınız değer bulunamadı', 404, 0);
             }
@@ -70,10 +71,11 @@ class PreOrderController extends ApiController
         $req = json_decode($request->getContent(), true);
 
         $basketId = isset($req['basket_id']) ? $req['basket_id'] : 0;
-        $firstName = isset($req['firstName']) ? $req['firstName'] : null;
-        $lastName = isset($req['lastName']) ? $req['lastName'] : null;
+        $firstName = isset($req['first_name']) ? $req['first_name'] : null;
+        $lastName = isset($req['last_name']) ? $req['last_name'] : null;
         $email = isset($req['email']) ? $req['email'] : null;
-        $phoneNumber = isset($req['phoneNumber']) ? $req['phoneNumber'] : null;
+        $phoneNumber = isset($req['phone_number']) ? $req['phone_number'] : null;
+        $status = isset($req['status']) ? $req['status'] : PreOrder::STATUS_PENDING;
 
 
         $basket = $this->em->getRepository(Basket::class)->find($basketId);
@@ -86,6 +88,7 @@ class PreOrderController extends ApiController
         $order->setLastName($lastName);
         $order->setEmail($email);
         $order->setPhoneNumber($phoneNumber);
+        $order->setStatus($status);
 
         $validate = $this->validate($order);
         if ($validate) {

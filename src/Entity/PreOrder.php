@@ -58,8 +58,7 @@ class PreOrder
     private $phoneNumber;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Basket", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\Basket")
      */
     private $basket;
 

@@ -67,13 +67,10 @@ class UpdateStatusCommandTest extends KernelTestCase
 
         $newPre = $this->em->getRepository(PreOrder::class)->find($pre->getId());
         $this->assertEquals($newPre->getStatus(), PreOrder::STATUS_AUTO_REJECT);
-
-        $basket = $this->em->merge($basket);
-        $order = $this->em->merge($order);
+        
         $pre = $this->em->merge($pre);
-
+        $basket = $this->em->merge($basket);
         $this->em->remove($pre);
-        $this->em->remove($order);
         $this->em->remove($basket);
         $this->em->flush();
     }

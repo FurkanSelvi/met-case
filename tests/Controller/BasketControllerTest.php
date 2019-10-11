@@ -25,6 +25,20 @@ class BookControllerTest extends WebTestCase
 
     public function testCreate()
     {
+        $this->client->request('POST', "/api/basket");
+        $data = json_decode($this->client->getResponse()->getContent(),true);
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertArrayHasKey('data', $data);
+        $this->assertArrayHasKey('basket', $data["data"]);
+
+        $basket = $this->em->getRepository(Basket::class)->find($data["data"]["basket"]["id"]);
+        $this->em->remove($basket);
+        $this->em->flush();
+    }
+
+    public function testShow()
+    {
         $basket = new Basket();
         $this->em->persist($basket);
         $this->em->flush();
@@ -36,6 +50,22 @@ class BookControllerTest extends WebTestCase
         $basket = $this->em->merge($basket);
         $this->em->remove($basket);
         $this->em->flush();
+    }
+
+    public function testDelete()
+    {
+        $basket = new Basket();
+        $this->em->persist($basket);
+        $this->em->flush();
+        $id = $basket->getId();
+
+        $this->client->request('DELETE', "/api/basket/$id");
+        $data = json_decode($this->client->getResponse()->getContent(),true);
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertArrayHasKey('data', $data);
+        $this->assertArrayHasKey('basket', $data["data"]);
+        $this->assertEquals($data["data"]["basket"]["id"], $id);
     }
 
 }

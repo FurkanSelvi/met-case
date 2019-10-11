@@ -24,7 +24,7 @@ class Order
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Basket", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Basket", inversedBy="orders", cascade={"merge"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $basket;

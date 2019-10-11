@@ -20,7 +20,7 @@ class Basket
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="basket")
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="basket", cascade={"merge"}, orphanRemoval=true)
      */
     private $orders;
 
