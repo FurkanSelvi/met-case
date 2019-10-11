@@ -1,5 +1,5 @@
 ## Kurulum
-- Proje dizininde `composer install` calistirilir
+- Proje dizininde `composer install` çalıştırılır
 - Database ayarlari icin `.env` dosyasinda `DATABASE_URL=mysql://KULLANICIADI:SIFRE@127.0.0.1:3306/DATABASENAME`
 - Database yok ise `php bin/console doctrine:database:create` komutu ile database olustur.
 - `php bin/console doctrine:schema:update --force` ile tabloları oluştur.
